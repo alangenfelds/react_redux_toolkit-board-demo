@@ -35,8 +35,8 @@ export const updatePost = createAsyncThunk(
       const response = await axios.put(`${POSTS_URL}/${id}`, initialPost);
       return response.data;
     } catch (err) {
-    //   return err.message;
-    return initialPost; // only for testing Redux
+      //   return err.message;
+      return initialPost; // only for testing Redux
     }
   }
 );
@@ -134,11 +134,11 @@ const postsSlice = createSlice({
         action.payload.userId = Number(action.payload.userId);
         action.payload.date = new Date().toISOString();
         action.payload.reactions = {
-            thumbsUp: 0,
-            wow: 0,
-            heart: 0,
-            rocket: 0,
-            coffee: 0,
+          thumbsUp: 0,
+          wow: 0,
+          heart: 0,
+          rocket: 0,
+          coffee: 0,
         };
         console.log(action.payload);
         state.posts.push(action.payload);
@@ -174,6 +174,9 @@ export const selectAllPosts = (state) => state.posts.posts;
 
 export const selectPostById = (state, postId) =>
   state.posts.posts.find((post) => post.id === postId);
+
+export const selectPostsByUser = (state, userId) =>
+  state.posts.posts.filter((post) => post.userId === userId);
 
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
